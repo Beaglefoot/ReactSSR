@@ -10,7 +10,12 @@ import Routes from './Routes';
 import reducers from './reducers';
 
 // TODO: check without the 2nd arg
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+const store = createStore(
+  reducers,
+  window.INITIAL_STATE,
+  // JSON.parse(localStorage.getItem('INITIAL_STATE')),
+  applyMiddleware(thunk)
+);
 
 ReactDOM.hydrate(
   <Provider store={store}>
