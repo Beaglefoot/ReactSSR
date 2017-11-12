@@ -6,15 +6,20 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
+import axios from 'axios';
 import Routes from './Routes';
 import reducers from './reducers';
+
+const axiosInstance = axios.create({
+  baseURL: '/api'
+});
 
 // TODO: check without the 2nd arg
 const store = createStore(
   reducers,
   window.INITIAL_STATE,
   // JSON.parse(localStorage.getItem('INITIAL_STATE')),
-  applyMiddleware(thunk)
+  applyMiddleware(thunk.withExtraArgument(axiosInstance))
 );
 
 ReactDOM.hydrate(
